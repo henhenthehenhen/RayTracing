@@ -1,5 +1,5 @@
 // vec3 Utility Functions
-#include <vec3.h>
+#include "vec3.h"
 
 inline ostream& operator << (ostream &out, const vec3 &v) { //outputting the vector? 
     return out << v.e[0] << " " << v.e[1] << " " << v.e[2];
