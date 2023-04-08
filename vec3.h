@@ -6,8 +6,6 @@
 
 using namespace std;
 
-using std::sqrt;
-
 class vec3 {
     public:
         vec3 () : e {0, 0, 0} {} //default constructor, no parameters, sets x, y, z = 0 
