@@ -38,17 +38,17 @@ class vec3 {
             return *this;
         }
 
-        vec3& operator*=(const double t) { //multiply two vectors by scalar
+        vec3& operator*=(const double t) { //multiply a vector by a scalar
             e[0] *= t;
             e[1] *= t;
             e[2] *= t;
             return *this;
         }
-
+        
         vec3& operator/=(const double t) { //divide two vectors by scalar
             return *this *= 1/t;
         }
-
+        
         double length() const { // length of vector 
             return sqrt(length_squared());
         }
