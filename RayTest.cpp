@@ -17,13 +17,13 @@ double hit_sphere (const point3& center, double radius, const ray& r){
 }
 
 color ray_color (const ray& r){
-    double t = hit_sphere (point3 (0, 0, -1), 0.5, r);
-    if (t > 0.0){ //hit
-        vec3 N = unit_vector (r.at(t) - vec3(0, 0, -1)); //normal vector
-        return 0.5 * color (N.x()+1, N.y()+1, N.z()+1); //color b/w [0, 1] (dimmed by half)
+    double d = hit_sphere (point3 (0, 0, -1), 0.5, r);
+    if (d > 0.0){ //hit
+        vec3 N = unit_vector (r.at(d) - vec3(0, 0, -1)); //normal vector
+        return 0.5 * color (N.x()+1, N.y()+1, N.z()+1); //color b/w [0, 1] 
     } 
     vec3 unit_direction = unit_vector (r.direction());
-    t = 0.5 * (unit_direction.y() + 1.0);
+    double t = 0.5 * (unit_direction.y() + 1.0);
     return (1.0-t)*color (1.0, 1.0, 1.0) + t*color (0.5, 0.7, 1.0); //background (gradient)
 }
 
@@ -50,8 +50,8 @@ int main() {
     for (int j = image_height-1; j >= 0; --j) {
        cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
         for (int i = 0; i < image_width; ++i) {
-            auto u = double(i) / (image_width-1);
-            auto v = double(j) / (image_height-1);
+            auto u = double (i) / (image_width-1);
+            auto v = double (j) / (image_height-1);
             ray r (origin, lower_left_corner + u*horizontal + v*vertical - origin);
             color pixel_color = ray_color(r);
             write_color(cout, pixel_color);

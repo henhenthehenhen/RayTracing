@@ -19,16 +19,16 @@ public:
     }
     void writeFile () const {
         cout << "P3\n" << width << " " << height << "\n255\n";
-        for (int j = height-1; j >= 0; --j) {
-            for (int i = 0; i < width; ++i) {
-                write_color(cout, pixels[j*width + i]);
+        for (int j = height-1; j >= 0; j--){
+            for (int i = 0; i < width; i++){
+                write_color (cout, pixels[j*width + i]);
             }
         }
     }
     string writeString() const {
         string result = "P3\n" + to_string(width) + " " + to_string(height) + "\n255\n";
-        for (int j = height-1; j >= 0; --j) {
-            for (int i = 0; i < width; ++i) {
+        for (int j = height-1; j >= 0; j--) {
+            for (int i = 0; i < width; i++) {
                 const color& c = pixels[j*width + i];
                 result += to_string(static_cast<int>(255.999*c.x())) + " "
                         + to_string(static_cast<int>(255.999*c.y())) + " "
