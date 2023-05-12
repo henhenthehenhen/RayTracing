@@ -65,7 +65,7 @@ class vec3 {
             return vec3 (random_double (min, max), random_double (min, max), random_double (min, max));
         }
 
-        vec3 random_in_unit_sphere () {
+        inline static vec3 random_in_unit_sphere () {
             while (true){
                 auto p = vec3::random(-1, 1);
                 if (p.length_squared() >= 1) continue;
