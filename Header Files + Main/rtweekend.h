@@ -1,6 +1,9 @@
 #ifndef RTWEEKEND_H
 #define RTWEEKEND_H
 
+#include "ray.h"
+#include "vec3.h"
+
 #include <cmath>
 #include <limits>
 #include <memory>
@@ -32,8 +35,5 @@ inline double clamp(double x, double min, double max){ //makes sure between min 
     if (x > max) return max;
     return x;
 }
-
-#include "ray.h"
-#include "vec3.h"
 
 #endif

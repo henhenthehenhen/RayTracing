@@ -2,8 +2,6 @@
 #define PPMIMAGE_H
 
 #include "color.h"
-#include "vec3.h"
-#include "vec3utility.h"
 
 #include <bits/stdc++.h>
 
@@ -21,7 +19,7 @@ public:
         cout << "P3\n" << width << " " << height << "\n255\n";
         for (int j = height-1; j >= 0; j--){
             for (int i = 0; i < width; i++){
-                write_color (cout, pixels[j*width + i]);
+                write_color (cout, pixels[j*width + i], 1);
             }
         }
     }
