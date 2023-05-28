@@ -17,7 +17,7 @@ using json = nlohmann::json;
 color ray_color (const ray& r, const hittable& world, int depth){
     hit_record rec;
     if (depth <= 0) return color (0, 0, 0); //no more light (returns black)
-    if (world.hit (r, 0, infinity, rec)){ //hit sphere
+    if (world.hit (r, 0.001, infinity, rec)){ //hit sphere
         ray scattered;
         color attenuation; //reducing light intensity
         if (rec.mat_ptr->scatter(r, rec, attenuation, scattered)){
@@ -59,7 +59,7 @@ int main(){
     const auto aspect_ratio = 16.0 / 9.0;
     const int image_width = 400;
     const int image_height = static_cast<int>(image_width / aspect_ratio);
-    const int samples_per_pixel = 200;
+    const int samples_per_pixel = 100;
     const int max_depth = 50; 
 
     json sceneJson;
