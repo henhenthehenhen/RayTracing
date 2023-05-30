@@ -30,12 +30,12 @@ color ray_color (const ray& r, const hittable& world, int depth){
     return (1.0 - t) * color (1.0, 1.0, 1.0) + t * color(0.5, 0.7, 1.0); //background
 }
 
-hittable_list parse_shapes (const json& shapesJson){
+hittable_list parse_shapes(const json& shapesJson){
     hittable_list shapes;
-    for (const auto& shapeJson: shapesJson){
+    for (const auto& shapeJson : shapesJson) {
         string type = shapeJson["type"];
         if (type == "sphere"){
-            point3 center(shapeJson["center"][0], shapeJson["center"][1], shapeJson["center"][2]);
+            point3 center (shapeJson["center"][0], shapeJson["center"][1], shapeJson["center"][2]);
             double radius = shapeJson["radius"];
             auto materialJson = shapeJson["material"];
             string materialType = materialJson["type"];
@@ -45,21 +45,27 @@ hittable_list parse_shapes (const json& shapesJson){
                 mat_ptr = make_shared<lambertian>(albedo);
             } 
             else if (materialType == "metal"){
-                color albedo (materialJson["albedo"][0], materialJson["albedo"][1], materialJson["albedo"][2]);
-                mat_ptr = make_shared<metal>(albedo);
+                color albedo(materialJson["albedo"][0], materialJson["albedo"][1], materialJson["albedo"][2]);
+                double fuzz = materialJson["fuzz"];
+                mat_ptr = make_shared <metal> (albedo, fuzz);
             }
-            shapes.add(make_shared<sphere>(center, radius, mat_ptr));
+            else if (materialType == "dielectric"){
+                double ir = materialJson["ir"];
+                mat_ptr = make_shared <dielectric> (ir); 
+            }
+            shapes.add (make_shared<sphere> (center, radius, mat_ptr));
         }
     }
     return shapes;
 }
 
 
+
 int main(){
     const auto aspect_ratio = 16.0 / 9.0;
     const int image_width = 400;
     const int image_height = static_cast<int>(image_width / aspect_ratio);
-    const int samples_per_pixel = 100;
+    const int samples_per_pixel = 200;
     const int max_depth = 50; 
 
     json sceneJson;
@@ -70,7 +76,7 @@ int main(){
 
     camera cam;
 
-    ofstream outputFile("metallic.ppm");
+    ofstream outputFile("dielectric.ppm");
     outputFile << "P3\n" << image_width << ' ' << image_height << "\n255\n";
     for (int j = image_height - 1; j >= 0; j--){
         cerr << "\rScanlines remaining: " << j << ' ' << flush;
