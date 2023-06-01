@@ -64,7 +64,7 @@ hittable_list parse_shapes(const json& shapesJson){
 int main(){
     const auto aspect_ratio = 16.0 / 9.0;
     const int image_width = 400;
-    const int image_height = static_cast<int>(image_width / aspect_ratio);
+    const int image_height = static_cast<int> (image_width/aspect_ratio);
     const int samples_per_pixel = 200;
     const int max_depth = 50; 
 
@@ -74,9 +74,9 @@ int main(){
 
     hittable_list world = parse_shapes (sceneJson["shapes"]);
 
-    camera cam;
+    camera cam (point3 (-2, 2, 1), point3 (0, 0, -1), vec3 (0, 1, 0), 90, aspect_ratio);
 
-    ofstream outputFile("dielectric.ppm");
+    ofstream outputFile("camera.ppm");
     outputFile << "P3\n" << image_width << ' ' << image_height << "\n255\n";
     for (int j = image_height - 1; j >= 0; j--){
         cerr << "\rScanlines remaining: " << j << ' ' << flush;
