@@ -115,19 +115,11 @@ inline double random_double (double min, double max){ //random double in [min,ma
 }
 
 inline vec3 random() {
-    return vec3(random_double(), random_double(), random_double());
+    return vec3 (random_double(), random_double(), random_double());
 }
 
 inline vec3 random(double min, double max) {
     return vec3(random_double(min,max), random_double(min,max), random_double(min,max));
-}
-
-inline vec3 random_in_unit_disk() {
-    while (true) {
-        auto p = vec3(random_double(-1,1), random_double(-1,1), 0);
-        if (p.length_squared() >= 1) continue;
-        return p;
-    }
 }
 
 inline vec3 random_in_unit_sphere() {
@@ -144,7 +136,7 @@ inline vec3 random_unit_vector () {
 
 inline vec3 random_in_hemisphere (const vec3& normal) {
     vec3 in_unit_sphere = random_in_unit_sphere();
-    if (dot (in_unit_sphere, normal) > 0.0){ // In the same hemisphere as the normal
+    if (dot (in_unit_sphere, normal) > 0.0){ // in the same hemisphere as the normal
         return in_unit_sphere;
     }
     else {
@@ -161,6 +153,14 @@ inline vec3 refract (const vec3& uv, const vec3& n, double etai_over_etat){
     vec3 r_out_perp =  etai_over_etat * (uv + cos_theta*n);
     vec3 r_out_parallel = -sqrt(fabs(1.0 - r_out_perp.length_squared())) * n;
     return r_out_perp + r_out_parallel;
+}
+
+inline vec3 random_in_unit_disk (){
+    while (true){
+        auto p = vec3(random_double(-1,1), random_double(-1,1), 0);
+        if (p.length_squared() >= 1) continue;
+        return p;
+    }
 }
 
 #endif
